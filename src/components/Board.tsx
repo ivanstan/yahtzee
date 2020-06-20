@@ -94,7 +94,7 @@ class Board extends React.Component<any, any> {
     public setValue = (dirtyValue: string, row: string, col: number): void => {
         const value: number = parseInt(dirtyValue);
 
-        if (isNaN(value) || value < 0) {
+        if (dirtyValue !== '' && (isNaN(value) || value < 0)) {
             return;
         }
 
@@ -105,17 +105,71 @@ class Board extends React.Component<any, any> {
         this.setState(state);
     };
 
-    public getValue(row: string, col: number): number {
-        return this.state[row][col] || '';
+    public calculateColSum = (row: string, col: number): number | string => {
+        let sum = 0;
+        const sumCols = this.getSumCols(row);
+
+        for (let i in sumCols) {
+            if (!sumCols.hasOwnProperty(i)) {
+                continue;
+            }
+
+            const sumCol = sumCols[i];
+
+            if (this.state.hasOwnProperty(sumCol)) {
+                let value = this.state[sumCol][col] || 0;
+                sum += value;
+            }
+        }
+
+        return sum > 0 ? sum : '';
+    };
+
+    public calculateRowSum = (row: string, col: number): number | string => {
+        let sum = 0;
+
+        console.log(row, col);
+
+        return sum > 0 ? sum : '';
     }
 
-    public isEnabled(row: string, col: number): boolean {
-        if (row === 'SUM1' || row === 'SUM2' || row === 'SUM3') {
+    public getSumCols = (sumRow: string): any => {
+        if (sumRow === 'SUM1') {
+            return [1, 2, 3, 4, 5, 6];
+        }
+
+        if (sumRow === 'SUM2') {
+            return ['MIN', 'MAX'];
+        }
+
+        if (sumRow === 'SUM3') {
+            return ['KENTA', 'TRILING', 'FULL', 'KARE', 'YAMB'];
+        }
+
+        return [];
+    };
+
+    public getValue = (row: string, col: number): number | string => {
+        if (this.isSumRow(row)) {
+            return this.calculateColSum(row, col);
+        }
+
+        if (col === Board.COL_SUM) {
+            return this.calculateRowSum(row, col);
+        }
+
+        return this.state[row][col] || '';
+    };
+
+    public isSumRow = (row: string): boolean => row === 'SUM1' || row === 'SUM2' || row === 'SUM3';
+
+    public isEnabled = (row: string, col: number): boolean => {
+        if (this.isSumRow(row)) {
             return false;
         }
 
         return true;
-    }
+    };
 
     render() {
         return (
@@ -793,7 +847,12 @@ class Board extends React.Component<any, any> {
                                   disabled={!this.isEnabled("SUM2", Board.COL_M)}
                                   type="text"/>
                     </Cell>
-                    <Cell/>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_SUM)}
+                                  value={this.getValue("SUM2", Board.COL_SUM)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_SUM)}
+                                  type="text"/>
+                    </Cell>
                 </SumRow>
                 <Row>
                     <HeaderCell>KENTA</HeaderCell>
