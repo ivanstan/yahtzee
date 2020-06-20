@@ -116,13 +116,33 @@ class Board extends React.Component<any, any> {
         state['SUM1'] = {};
         state['SUM2'] = {};
         state['SUM3'] = {};
+        state['TOTAL'] = '';
         state[row][col] = value;
 
         this.setState(state);
 
         this.calculateRowSum();
         this.calculateColSum();
+        this.calculateTotal();
     };
+
+    public calculateTotal = (): void => {
+        const sumRows = ['SUM1', 'SUM2', 'SUM3'];
+
+        let total = 0;
+
+        for (let i in sumRows) {
+            const value = this.state[sumRows[i]][Board.COL_SUM];
+
+            if (!isNaN(value)) {
+                total += value;
+            }
+        }
+
+        this.setState({
+            TOTAL: total > 0 ? total : '',
+        })
+    }
 
     public calculateColSum = (): void => {
         const sumRows = ['SUM1', 'SUM2', 'SUM3'];
@@ -132,7 +152,7 @@ class Board extends React.Component<any, any> {
         for (let i in sumRows) {
             let sum = 0;
 
-            for(let j in state[sumRows[i]]) {
+            for (let j in state[sumRows[i]]) {
                 let value = parseInt(state[sumRows[i]][j]);
                 if (!isNaN(value)) {
                     sum += value;
