@@ -23,7 +23,7 @@ const SumRow = styled(Row)`
 const Cell = styled.td`
     border: 2px solid #5c6274;
     width: 8.33%;
-    min-height: 32px;
+    height: 32px;
 `;
 
 const HeaderCell = styled(Cell)`
@@ -53,7 +53,70 @@ const Input = styled.input`
     }
 `;
 
+const SumInput = styled(Input)`
+    cursor: auto;
+`;
+
 class Board extends React.Component<any, any> {
+
+    public static COL_UP = 0;
+    public static COL_UP_DOWN = 1;
+    public static COL_DOWN = 2;
+    public static COL_N = 3;
+    public static COL_R = 4;
+    public static COL_D = 5;
+    public static COL_OPPOSITE = 6;
+    public static COL_TOWARD = 7;
+    public static COL_O = 8;
+    public static COL_M = 9;
+    public static COL_SUM = 10;
+
+    public readonly state: any = {
+        1: {},
+        2: {},
+        3: {},
+        4: {},
+        5: {},
+        6: {},
+        SUM1: {},
+        MIN: {},
+        MAX: {},
+        SUM2: {},
+        KENTA: {},
+        TRILING: {},
+        FULL: {},
+        KARE: {},
+        YAMB: {},
+        SUM3: {},
+        TOTAL: '',
+    };
+
+    public setValue = (dirtyValue: string, row: string, col: number): void => {
+        const value: number = parseInt(dirtyValue);
+
+        if (isNaN(value) || value < 0) {
+            return;
+        }
+
+        const state: any = this.state;
+
+        state[row][col] = value;
+
+        this.setState(state);
+    };
+
+    public getValue(row: string, col: number): number {
+        return this.state[row][col] || '';
+    }
+
+    public isEnabled(row: string, col: number): boolean {
+        if (row === 'SUM1' || row === 'SUM2' || row === 'SUM3') {
+            return false;
+        }
+
+        return true;
+    }
+
     render() {
         return (
             <Table>
@@ -89,231 +152,1041 @@ class Board extends React.Component<any, any> {
                 <tbody>
                 <Row>
                     <HeaderCell>1</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_UP)}
+                               value={this.getValue("1", Board.COL_UP)}
+                               disabled={!this.isEnabled("1", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_UP_DOWN)}
+                               value={this.getValue("1", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("1", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_DOWN)}
+                               value={this.getValue("1", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("1", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_N)}
+                               value={this.getValue("1", Board.COL_N)}
+                               disabled={!this.isEnabled("1", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_R)}
+                               value={this.getValue("1", Board.COL_R)}
+                               disabled={!this.isEnabled("1", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_D)}
+                               value={this.getValue("1", Board.COL_D)}
+                               disabled={!this.isEnabled("1", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_OPPOSITE)}
+                               value={this.getValue("1", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("1", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_TOWARD)}
+                               value={this.getValue("1", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("1", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_O)}
+                               value={this.getValue("1", Board.COL_O)}
+                               disabled={!this.isEnabled("1", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_M)}
+                               value={this.getValue("1", Board.COL_M)}
+                               disabled={!this.isEnabled("1", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>2</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_UP)}
+                               value={this.getValue("2", Board.COL_UP)}
+                               disabled={!this.isEnabled("2", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_UP_DOWN)}
+                               value={this.getValue("2", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("2", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_DOWN)}
+                               value={this.getValue("2", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("2", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_N)}
+                               value={this.getValue("2", Board.COL_N)}
+                               disabled={!this.isEnabled("2", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_R)}
+                               value={this.getValue("2", Board.COL_R)}
+                               disabled={!this.isEnabled("2", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_D)}
+                               value={this.getValue("2", Board.COL_D)}
+                               disabled={!this.isEnabled("2", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_OPPOSITE)}
+                               value={this.getValue("2", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("2", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_TOWARD)}
+                               value={this.getValue("2", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("2", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_O)}
+                               value={this.getValue("2", Board.COL_O)}
+                               disabled={!this.isEnabled("2", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "2", Board.COL_M)}
+                               value={this.getValue("2", Board.COL_M)}
+                               disabled={!this.isEnabled("2", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>3</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_UP)}
+                               value={this.getValue("3", Board.COL_UP)}
+                               disabled={!this.isEnabled("3", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_UP_DOWN)}
+                               value={this.getValue("3", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("3", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_DOWN)}
+                               value={this.getValue("3", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("3", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_N)}
+                               value={this.getValue("3", Board.COL_N)}
+                               disabled={!this.isEnabled("3", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_R)}
+                               value={this.getValue("3", Board.COL_R)}
+                               disabled={!this.isEnabled("3", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_D)}
+                               value={this.getValue("3", Board.COL_D)}
+                               disabled={!this.isEnabled("3", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_OPPOSITE)}
+                               value={this.getValue("3", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("3", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_TOWARD)}
+                               value={this.getValue("3", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("3", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_O)}
+                               value={this.getValue("3", Board.COL_O)}
+                               disabled={!this.isEnabled("3", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "3", Board.COL_M)}
+                               value={this.getValue("3", Board.COL_M)}
+                               disabled={!this.isEnabled("3", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>4</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_UP)}
+                               value={this.getValue("4", Board.COL_UP)}
+                               disabled={!this.isEnabled("4", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_UP_DOWN)}
+                               value={this.getValue("4", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("4", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_DOWN)}
+                               value={this.getValue("4", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("4", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_N)}
+                               value={this.getValue("4", Board.COL_N)}
+                               disabled={!this.isEnabled("4", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_R)}
+                               value={this.getValue("4", Board.COL_R)}
+                               disabled={!this.isEnabled("4", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_D)}
+                               value={this.getValue("4", Board.COL_D)}
+                               disabled={!this.isEnabled("4", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_OPPOSITE)}
+                               value={this.getValue("4", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("4", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_TOWARD)}
+                               value={this.getValue("4", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("4", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_O)}
+                               value={this.getValue("4", Board.COL_O)}
+                               disabled={!this.isEnabled("4", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "4", Board.COL_M)}
+                               value={this.getValue("4", Board.COL_M)}
+                               disabled={!this.isEnabled("4", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>5</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_UP)}
+                               value={this.getValue("5", Board.COL_UP)}
+                               disabled={!this.isEnabled("5", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_UP_DOWN)}
+                               value={this.getValue("5", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("5", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_DOWN)}
+                               value={this.getValue("5", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("5", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_N)}
+                               value={this.getValue("5", Board.COL_N)}
+                               disabled={!this.isEnabled("5", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_R)}
+                               value={this.getValue("5", Board.COL_R)}
+                               disabled={!this.isEnabled("5", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_D)}
+                               value={this.getValue("5", Board.COL_D)}
+                               disabled={!this.isEnabled("5", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_OPPOSITE)}
+                               value={this.getValue("5", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("5", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_TOWARD)}
+                               value={this.getValue("5", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("5", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_O)}
+                               value={this.getValue("5", Board.COL_O)}
+                               disabled={!this.isEnabled("5", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "5", Board.COL_M)}
+                               value={this.getValue("5", Board.COL_M)}
+                               disabled={!this.isEnabled("5", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>6</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_UP)}
+                               value={this.getValue("6", Board.COL_UP)}
+                               disabled={!this.isEnabled("6", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_UP_DOWN)}
+                               value={this.getValue("6", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("6", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_DOWN)}
+                               value={this.getValue("6", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("6", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_N)}
+                               value={this.getValue("6", Board.COL_N)}
+                               disabled={!this.isEnabled("6", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_R)}
+                               value={this.getValue("6", Board.COL_R)}
+                               disabled={!this.isEnabled("6", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_D)}
+                               value={this.getValue("6", Board.COL_D)}
+                               disabled={!this.isEnabled("6", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_OPPOSITE)}
+                               value={this.getValue("6", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("6", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_TOWARD)}
+                               value={this.getValue("6", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("6", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_O)}
+                               value={this.getValue("6", Board.COL_O)}
+                               disabled={!this.isEnabled("6", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "6", Board.COL_M)}
+                               value={this.getValue("6", Board.COL_M)}
+                               disabled={!this.isEnabled("6", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <SumRow>
                     <HeaderCell>Σ</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_UP)}
+                                  value={this.getValue("SUM1", Board.COL_UP)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_UP)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_UP_DOWN)}
+                                  value={this.getValue("SUM1", Board.COL_UP_DOWN)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_UP_DOWN)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_DOWN)}
+                                  value={this.getValue("SUM1", Board.COL_DOWN)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_DOWN)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_N)}
+                                  value={this.getValue("SUM1", Board.COL_N)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_N)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_R)}
+                                  value={this.getValue("SUM1", Board.COL_R)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_R)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_D)}
+                                  value={this.getValue("SUM1", Board.COL_D)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_D)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_OPPOSITE)}
+                                  value={this.getValue("SUM1", Board.COL_OPPOSITE)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_OPPOSITE)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_TOWARD)}
+                                  value={this.getValue("SUM1", Board.COL_TOWARD)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_TOWARD)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_O)}
+                                  value={this.getValue("SUM1", Board.COL_O)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_O)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_M)}
+                                  value={this.getValue("SUM1", Board.COL_M)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_M)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM1", Board.COL_SUM)}
+                                  value={this.getValue("SUM1", Board.COL_SUM)}
+                                  disabled={!this.isEnabled("SUM1", Board.COL_SUM)}
+                                  type="text"/>
+                    </Cell>
                 </SumRow>
                 <Row>
                     <HeaderCell>MIN</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_UP)}
+                               value={this.getValue("MIN", Board.COL_UP)}
+                               disabled={!this.isEnabled("MIN", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_UP_DOWN)}
+                               value={this.getValue("MIN", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("MIN", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_DOWN)}
+                               value={this.getValue("MIN", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("MIN", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_N)}
+                               value={this.getValue("MIN", Board.COL_N)}
+                               disabled={!this.isEnabled("MIN", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_R)}
+                               value={this.getValue("MIN", Board.COL_R)}
+                               disabled={!this.isEnabled("MIN", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_D)}
+                               value={this.getValue("MIN", Board.COL_D)}
+                               disabled={!this.isEnabled("MIN", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_OPPOSITE)}
+                               value={this.getValue("MIN", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("MIN", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_TOWARD)}
+                               value={this.getValue("MIN", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("MIN", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_O)}
+                               value={this.getValue("MIN", Board.COL_O)}
+                               disabled={!this.isEnabled("MIN", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_M)}
+                               value={this.getValue("MIN", Board.COL_M)}
+                               disabled={!this.isEnabled("MIN", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>MAX</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_UP)}
+                               value={this.getValue("MAX", Board.COL_UP)}
+                               disabled={!this.isEnabled("MAX", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_UP_DOWN)}
+                               value={this.getValue("MAX", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("MAX", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_DOWN)}
+                               value={this.getValue("MAX", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("MAX", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_N)}
+                               value={this.getValue("MAX", Board.COL_N)}
+                               disabled={!this.isEnabled("MAX", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_R)}
+                               value={this.getValue("MAX", Board.COL_R)}
+                               disabled={!this.isEnabled("MAX", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_D)}
+                               value={this.getValue("MAX", Board.COL_D)}
+                               disabled={!this.isEnabled("MAX", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_OPPOSITE)}
+                               value={this.getValue("MAX", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("MAX", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_TOWARD)}
+                               value={this.getValue("MAX", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("MAX", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_O)}
+                               value={this.getValue("MAX", Board.COL_O)}
+                               disabled={!this.isEnabled("MAX", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_M)}
+                               value={this.getValue("MAX", Board.COL_M)}
+                               disabled={!this.isEnabled("MAX", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <SumRow>
                     <HeaderCell>Σ</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_UP)}
+                                  value={this.getValue("SUM2", Board.COL_UP)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_UP)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_UP_DOWN)}
+                                  value={this.getValue("SUM2", Board.COL_UP_DOWN)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_UP_DOWN)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_DOWN)}
+                                  value={this.getValue("SUM2", Board.COL_DOWN)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_DOWN)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_N)}
+                                  value={this.getValue("SUM2", Board.COL_N)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_N)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_R)}
+                                  value={this.getValue("SUM2", Board.COL_R)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_R)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_D)}
+                                  value={this.getValue("SUM2", Board.COL_D)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_D)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_OPPOSITE)}
+                                  value={this.getValue("SUM2", Board.COL_OPPOSITE)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_OPPOSITE)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_TOWARD)}
+                                  value={this.getValue("SUM2", Board.COL_TOWARD)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_TOWARD)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_O)}
+                                  value={this.getValue("SUM2", Board.COL_O)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_O)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM2", Board.COL_M)}
+                                  value={this.getValue("SUM2", Board.COL_M)}
+                                  disabled={!this.isEnabled("SUM2", Board.COL_M)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell/>
                 </SumRow>
                 <Row>
                     <HeaderCell>KENTA</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_UP)}
+                               value={this.getValue("KENTA", Board.COL_UP)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_UP_DOWN)}
+                               value={this.getValue("KENTA", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_DOWN)}
+                               value={this.getValue("KENTA", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_N)}
+                               value={this.getValue("KENTA", Board.COL_N)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_R)}
+                               value={this.getValue("KENTA", Board.COL_R)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_D)}
+                               value={this.getValue("KENTA", Board.COL_D)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_OPPOSITE)}
+                               value={this.getValue("KENTA", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_TOWARD)}
+                               value={this.getValue("KENTA", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_O)}
+                               value={this.getValue("KENTA", Board.COL_O)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KENTA", Board.COL_M)}
+                               value={this.getValue("KENTA", Board.COL_M)}
+                               disabled={!this.isEnabled("KENTA", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>TRILING</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_UP)}
+                               value={this.getValue("TRILING", Board.COL_UP)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_UP_DOWN)}
+                               value={this.getValue("TRILING", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_DOWN)}
+                               value={this.getValue("TRILING", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_N)}
+                               value={this.getValue("TRILING", Board.COL_N)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_R)}
+                               value={this.getValue("TRILING", Board.COL_R)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_D)}
+                               value={this.getValue("TRILING", Board.COL_D)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_OPPOSITE)}
+                               value={this.getValue("TRILING", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_TOWARD)}
+                               value={this.getValue("TRILING", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_O)}
+                               value={this.getValue("TRILING", Board.COL_O)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "TRILING", Board.COL_M)}
+                               value={this.getValue("TRILING", Board.COL_M)}
+                               disabled={!this.isEnabled("TRILING", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>FULL</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_UP)}
+                               value={this.getValue("FULL", Board.COL_UP)}
+                               disabled={!this.isEnabled("FULL", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_UP_DOWN)}
+                               value={this.getValue("FULL", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("FULL", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_DOWN)}
+                               value={this.getValue("FULL", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("FULL", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_N)}
+                               value={this.getValue("FULL", Board.COL_N)}
+                               disabled={!this.isEnabled("FULL", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_R)}
+                               value={this.getValue("FULL", Board.COL_R)}
+                               disabled={!this.isEnabled("FULL", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_D)}
+                               value={this.getValue("FULL", Board.COL_D)}
+                               disabled={!this.isEnabled("FULL", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_OPPOSITE)}
+                               value={this.getValue("FULL", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("FULL", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_TOWARD)}
+                               value={this.getValue("FULL", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("FULL", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_O)}
+                               value={this.getValue("FULL", Board.COL_O)}
+                               disabled={!this.isEnabled("FULL", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "FULL", Board.COL_M)}
+                               value={this.getValue("FULL", Board.COL_M)}
+                               disabled={!this.isEnabled("FULL", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
                     <HeaderCell>KARE</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_UP)}
+                               value={this.getValue("KARE", Board.COL_UP)}
+                               disabled={!this.isEnabled("KARE", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_UP_DOWN)}
+                               value={this.getValue("KARE", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("KARE", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_DOWN)}
+                               value={this.getValue("KARE", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("KARE", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_N)}
+                               value={this.getValue("KARE", Board.COL_N)}
+                               disabled={!this.isEnabled("KARE", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_R)}
+                               value={this.getValue("KARE", Board.COL_R)}
+                               disabled={!this.isEnabled("KARE", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_D)}
+                               value={this.getValue("KARE", Board.COL_D)}
+                               disabled={!this.isEnabled("KARE", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_OPPOSITE)}
+                               value={this.getValue("KARE", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("KARE", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_TOWARD)}
+                               value={this.getValue("KARE", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("KARE", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_O)}
+                               value={this.getValue("KARE", Board.COL_O)}
+                               disabled={!this.isEnabled("KARE", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_M)}
+                               value={this.getValue("KARE", Board.COL_M)}
+                               disabled={!this.isEnabled("KARE", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <Row>
-                    <HeaderCell>JAMB</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <HeaderCell>YAMB</HeaderCell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_UP)}
+                               value={this.getValue("YAMB", Board.COL_UP)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_UP_DOWN)}
+                               value={this.getValue("YAMB", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_DOWN)}
+                               value={this.getValue("YAMB", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_N)}
+                               value={this.getValue("YAMB", Board.COL_N)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_R)}
+                               value={this.getValue("YAMB", Board.COL_R)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_D)}
+                               value={this.getValue("YAMB", Board.COL_D)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_OPPOSITE)}
+                               value={this.getValue("YAMB", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_TOWARD)}
+                               value={this.getValue("YAMB", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_O)}
+                               value={this.getValue("YAMB", Board.COL_O)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_M)}
+                               value={this.getValue("YAMB", Board.COL_M)}
+                               disabled={!this.isEnabled("YAMB", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
                     <Cell/>
                 </Row>
                 <SumRow>
                     <HeaderCell>Σ</HeaderCell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_UP)}
+                                  value={this.getValue("SUM3", Board.COL_UP)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_UP)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_UP_DOWN)}
+                                  value={this.getValue("SUM3", Board.COL_UP_DOWN)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_UP_DOWN)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_DOWN)}
+                                  value={this.getValue("SUM3", Board.COL_DOWN)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_DOWN)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_N)}
+                                  value={this.getValue("SUM3", Board.COL_N)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_N)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_R)}
+                                  value={this.getValue("SUM3", Board.COL_R)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_R)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_D)}
+                                  value={this.getValue("SUM3", Board.COL_D)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_D)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_OPPOSITE)}
+                                  value={this.getValue("SUM3", Board.COL_OPPOSITE)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_OPPOSITE)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_TOWARD)}
+                                  value={this.getValue("SUM3", Board.COL_TOWARD)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_TOWARD)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_O)}
+                                  value={this.getValue("SUM3", Board.COL_O)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_O)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_M)}
+                                  value={this.getValue("SUM3", Board.COL_M)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_M)}
+                                  type="text"/>
+                    </Cell>
+                    <Cell>
+                        <SumInput onChange={(e: any) => this.setValue(e.target.value, "SUM3", Board.COL_SUM)}
+                                  value={this.getValue("SUM3", Board.COL_SUM)}
+                                  disabled={!this.isEnabled("SUM3", Board.COL_SUM)}
+                                  type="text"/>
+                    </Cell>
                 </SumRow>
                 <SumRow>
                     <Cell colSpan={11}/>
-                    <Cell><Input type="text"/></Cell>
+                    <Cell><SumInput disabled type="text" value={this.state.TOTAL}/></Cell>
                 </SumRow>
                 </tbody>
             </Table>
