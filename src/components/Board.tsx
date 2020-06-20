@@ -71,6 +71,19 @@ class Board extends React.Component<any, any> {
     public static COL_M = 9;
     public static COL_SUM = 10;
 
+    public static sumCols = [
+        Board.COL_UP,
+        Board.COL_UP_DOWN,
+        Board.COL_DOWN,
+        Board.COL_N,
+        Board.COL_R,
+        Board.COL_D,
+        Board.COL_OPPOSITE,
+        Board.COL_TOWARD,
+        Board.COL_O,
+        Board.COL_M,
+    ];
+
     public readonly state: any = {
         1: {},
         2: {},
@@ -100,12 +113,52 @@ class Board extends React.Component<any, any> {
 
         const state: any = this.state;
 
+        state['SUM1'] = {};
+        state['SUM2'] = {};
+        state['SUM3'] = {};
         state[row][col] = value;
+
+        this.setState(state);
+
+        this.calculateRowSum();
+        this.calculateColSum();
+    };
+
+    public calculateColSum = (): void => {
+        const sumRows = ['SUM1', 'SUM2', 'SUM3'];
+
+        const state = this.state;
+
+        for (let i in sumRows) {
+            let sum = 0;
+
+            for(let j in state[sumRows[i]]) {
+                let value = parseInt(state[sumRows[i]][j]);
+                if (!isNaN(value)) {
+                    sum += value;
+                }
+            }
+
+            state[sumRows[i]][Board.COL_SUM] = sum;
+        }
+
+        this.setState(state);
+    }
+
+    public calculateRowSum = (): void => {
+        const sumRows = ['SUM1', 'SUM2', 'SUM3'];
+        const state = this.state;
+
+        for (let i in sumRows) {
+            for (let j in Board.sumCols) {
+                state[sumRows[i]][Board.sumCols[j]] = this.calculateCellSum(sumRows[i], Board.sumCols[j]);
+            }
+        }
 
         this.setState(state);
     };
 
-    public calculateColSum = (row: string, col: number): number | string => {
+    public calculateCellSum = (row: string, col: number): number | string => {
         let sum = 0;
         const sumCols = this.getSumCols(row);
 
@@ -125,14 +178,6 @@ class Board extends React.Component<any, any> {
         return sum > 0 ? sum : '';
     };
 
-    public calculateRowSum = (row: string, col: number): number | string => {
-        let sum = 0;
-
-        console.log(row, col);
-
-        return sum > 0 ? sum : '';
-    }
-
     public getSumCols = (sumRow: string): any => {
         if (sumRow === 'SUM1') {
             return [1, 2, 3, 4, 5, 6];
@@ -150,14 +195,6 @@ class Board extends React.Component<any, any> {
     };
 
     public getValue = (row: string, col: number): number | string => {
-        if (this.isSumRow(row)) {
-            return this.calculateColSum(row, col);
-        }
-
-        if (col === Board.COL_SUM) {
-            return this.calculateRowSum(row, col);
-        }
-
         return this.state[row][col] || '';
     };
 
