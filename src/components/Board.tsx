@@ -305,7 +305,8 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("1", Board.COL_OPPOSITE)}
                                type="text"/>
                     </Cell>
-                    <Cell>
+                    <Cell style={{position: 'relative'}}>
+                        <FontAwesomeIcon icon={faChevronDown} style={{position: 'absolute', fontSize: 11, 'left': 3, top: 0}}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_TOWARD)}
                                value={this.getValue("1", Board.COL_TOWARD)}
                                disabled={!this.isEnabled("1", Board.COL_TOWARD)}
@@ -752,7 +753,8 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("MIN", Board.COL_D)}
                                type="text"/>
                     </Cell>
-                    <Cell>
+                    <Cell style={{position: 'relative'}}>
+                        <FontAwesomeIcon icon={faChevronUp} style={{position: 'absolute', fontSize: 11, 'left': 3, top: 0}}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_OPPOSITE)}
                                value={this.getValue("MIN", Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled("MIN", Board.COL_OPPOSITE)}
@@ -816,7 +818,8 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("MAX", Board.COL_D)}
                                type="text"/>
                     </Cell>
-                    <Cell>
+                    <Cell style={{position: 'relative'}}>
+                        <FontAwesomeIcon icon={faChevronDown} style={{position: 'absolute', fontSize: 11, 'right': 3, bottom: 0}}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_OPPOSITE)}
                                value={this.getValue("MAX", Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled("MAX", Board.COL_OPPOSITE)}
@@ -1211,7 +1214,8 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("YAMB", Board.COL_OPPOSITE)}
                                type="text"/>
                     </Cell>
-                    <Cell>
+                    <Cell style={{position: 'relative'}}>
+                        <FontAwesomeIcon icon={faChevronUp} style={{position: 'absolute', fontSize: 11, 'right': 3, bottom: 0}}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_TOWARD)}
                                value={this.getValue("YAMB", Board.COL_TOWARD)}
                                disabled={!this.isEnabled("YAMB", Board.COL_TOWARD)}
