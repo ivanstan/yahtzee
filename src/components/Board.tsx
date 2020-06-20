@@ -1,5 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDice, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import VerticalArrowToward from "./VerticalArrowToward";
+import VerticalArrowOpposite from "./VerticalArrowOpposite";
 
 const Table = styled.table`
     border: 1px solid black;
@@ -18,7 +22,23 @@ const SumRow = styled(Row)`
 const Cell = styled.td`
     border: 1px solid black;
     width: 8.33%;
-        min-height: 32px;
+    min-height: 32px;
+`;
+
+const HeaderCell = styled(Cell)`
+    background: green;
+`;
+
+const Input = styled.input`
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    // border: 0;
+     vertical-align: top;
+     max-width: 40px;
+     margin: auto;
 `;
 
 class Board extends React.Component<any, any> {
@@ -27,263 +47,262 @@ class Board extends React.Component<any, any> {
             <Table>
                 <thead>
                 <Row>
-                    <Cell></Cell>
-                    <Cell>DOWN</Cell>
-                    <Cell>UP/DOWN</Cell>
-                    <Cell>UP</Cell>
-                    <Cell>N</Cell>
-                    <Cell>R</Cell>
-                    <Cell>D</Cell>
-                    <Cell>MID</Cell>
-                    <Cell>MET</Cell>
-                    <Cell>O</Cell>
-                    <Cell>M</Cell>
-                    <Cell></Cell>
+                    <HeaderCell>
+                        <FontAwesomeIcon icon={faDice} />
+                    </HeaderCell>
+                    <HeaderCell>
+                        <FontAwesomeIcon icon={faChevronDown} />
+                    </HeaderCell>
+                    <HeaderCell>
+                        <FontAwesomeIcon icon={faChevronUp} />
+                        <FontAwesomeIcon icon={faChevronDown} />
+                    </HeaderCell>
+                    <HeaderCell>
+                        <FontAwesomeIcon icon={faChevronUp} />
+                    </HeaderCell>
+                    <HeaderCell>N</HeaderCell>
+                    <HeaderCell>R</HeaderCell>
+                    <HeaderCell>D</HeaderCell>
+                    <HeaderCell>
+                        <VerticalArrowOpposite/>
+                    </HeaderCell>
+                    <HeaderCell>
+                        <VerticalArrowToward/>
+                    </HeaderCell>
+                    <HeaderCell>O</HeaderCell>
+                    <HeaderCell>M</HeaderCell>
+                    <HeaderCell/>
                 </Row>
                 </thead>
                 <tbody>
                 <Row>
-                    <Cell>1</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>1</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>2</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>2</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>3</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>3</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>4</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>4</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>5</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>5</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>6</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>6</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <SumRow>
-                    <Cell>SUM</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>Σ</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
                 </SumRow>
                 <Row>
-                    <Cell>MIN</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>MIN</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>MAX</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>MAX</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <SumRow>
-                    <Cell>SUM</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>Σ</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
                 </SumRow>
                 <Row>
-                    <Cell>KENTA</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>KENTA</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>TRILING</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>TRILING</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>FULL</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>FULL</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>KARE</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>KARE</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <Row>
-                    <Cell>JAMB</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                </Row>
-                <Row>
-                    <Cell>SUM</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>JAMB</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell/>
                 </Row>
                 <SumRow>
-                    <Cell>ZBIR</Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
-                    <Cell></Cell>
+                    <HeaderCell>Σ</HeaderCell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
+                    <Cell><Input type="number"/></Cell>
                 </SumRow>
-                <Row>
-                    <Cell colSpan={11}>ZBIR</Cell>
-                    <Cell></Cell>
-                </Row>
+                <SumRow>
+                    <Cell colSpan={11}/>
+                    <Cell><Input type="number"/></Cell>
+                </SumRow>
                 </tbody>
             </Table>
         );
