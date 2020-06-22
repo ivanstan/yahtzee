@@ -57,6 +57,10 @@ const SumInput = styled(Input)`
     cursor: auto;
 `;
 
+const DICE_COUNT = 6;
+const MAX_SINGLE_DICE_RESULT = 6;
+const MAX_SINGLE_THROW_RESULT = (DICE_COUNT - 1) * MAX_SINGLE_DICE_RESULT;
+
 class Board extends React.Component<any, any> {
 
     public static COL_UP = 0;
@@ -116,6 +120,10 @@ class Board extends React.Component<any, any> {
         const value: number = parseInt(dirtyValue);
 
         if (dirtyValue !== '' && (isNaN(value) || value < 0)) {
+            return;
+        }
+
+        if (value > MAX_SINGLE_THROW_RESULT) {
             return;
         }
 
@@ -188,9 +196,11 @@ class Board extends React.Component<any, any> {
             const min = this.state['MIN'][col];
             const max = this.state['MAX'][col];
 
-            let sum = (max - min) * multiplier;
+            if (multiplier && min && max) {
+                return (max - min) * multiplier;
+            }
 
-            return sum > 0 ? sum : '';
+            return 0;
         }
 
         let sum = 0;
@@ -228,7 +238,27 @@ class Board extends React.Component<any, any> {
         return [];
     };
 
-    public getValue = (row: string, col: number): number | string => this.state[row][col] || '';
+    public getValue = (row: string, col: number): number | string => {
+        const value = this.state[row][col];
+
+        if (value === 0 && !this.isSumRow(row)) {
+            return 'x';
+        }
+
+        if (row === 'SUM2' && value === 0) {
+            const multiplier = this.state[1][col];
+            const min = this.state['MIN'][col];
+            const max = this.state['MAX'][col];
+
+            if (multiplier && min && max) {
+                return 0;
+            }
+
+            return '';
+        }
+
+        return value || '';
+    }
     public isSumRow = (row: string): boolean => row === 'SUM1' || row === 'SUM2' || row === 'SUM3';
 
     public isEnabled = (row: string, col: number): boolean => {
