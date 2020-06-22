@@ -2592,6 +2592,13 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
+"aguid@>=2.0.0 <3.x":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/aguid/-/aguid-2.0.0.tgz#64bc264870dedf0eb9c72bddb53e5b30d32bc229"
+  integrity sha1-ZLwmSHDe3w65xyvdtT5bMNMrwik=
+  dependencies:
+    uuid "^3.0.1"
+
 ajv-errors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-1.0.1.tgz#f35986aceb91afadec4102fbd85014950cefa64d"
@@ -3443,6 +3450,18 @@ cache-base@^1.0.1:
     to-object-path "^0.3.0"
     union-value "^1.0.0"
     unset-value "^1.0.0"
+
+"call-if-defined@>=1.1.2 <2.x":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/call-if-defined/-/call-if-defined-1.1.2.tgz#4c4621c5b5371b8805793d15d944faed26a1479a"
+  integrity sha512-gI0XULSZ027By5LXiqt7+4SOPvvY/GdOQvFVCYR2+h/edKfcxWgoqETFpw6nKRF5MEEwyOcEiGHBY+KV6PMbgA==
+  dependencies:
+    call-if "^1.0.5"
+
+call-if@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/call-if/-/call-if-1.0.5.tgz#2a76ed008e112f10fd627ac0e0271f99e61723ad"
+  integrity sha512-aQI+wN7xsOrC8wIYTPFJgjZbN+zx3xQod+3OJ9dNL0r7sO9j8mfnYemOXI76iIznRMKm3UoGD70CnZitJF7HkA==
 
 call-me-maybe@^1.0.1:
   version "1.0.1"
@@ -9680,10 +9699,24 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-each@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-each/-/react-each-2.0.0.tgz#40a11562696e0c55ed423d606af1281697823a71"
+  integrity sha512-9YXoIGMnNTFfCIZkrORpBQKCMk+izR+Zbf3wJyyn9eXdoe7tk9prZGfdzAF7bVvAUs+dKvVZRfI+8ALfhxQm+g==
+  dependencies:
+    aguid ">=2.0.0 <3.x"
+    call-if-defined ">=1.1.2 <2.x"
+    valyou ">=1.2.2 <2.x"
+
 react-error-overlay@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
+
+react-if@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/react-if/-/react-if-3.4.3.tgz#bab45478dd0374b1c5fe44aa972a2fa921416a57"
+  integrity sha512-DddMrbjAA4lkVhhYJgoeKC9+dj950I9hx4KClhJXySTL3GsQ7hxl9eWkcqS2i/qWvfPiQheJOwTYQ+Wv2BNdMA==
 
 react-is@^16.12.0, react-is@^16.7.0:
   version "16.13.1"
@@ -11581,6 +11614,11 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+"valyou@>=1.2.2 <2.x":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/valyou/-/valyou-1.2.2.tgz#21844cc5dae8fadf5fff8d0093931a2004eb10b7"
+  integrity sha512-gjbVFBS2vdHK8/5YnWS3xoqhm2r7FZfcaJpsJkQKrSAVcheIwWUyiRUhDlclUHEkFWsDm5j9yBQU65ORtp7Upw==
 
 vary@~1.1.2:
   version "1.1.2"
