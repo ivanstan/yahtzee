@@ -78,7 +78,7 @@ class Board extends React.Component<any, any> {
     public static COL_M = 9;
     public static COL_SUM = 10;
 
-    public static summableCols = [
+    public static editableCols = [
         Board.COL_UP,
         Board.COL_UP_DOWN,
         Board.COL_DOWN,
@@ -92,7 +92,7 @@ class Board extends React.Component<any, any> {
     ];
 
     public static editableRows = [
-        '1', '2', '3', '4', '5', '6', 'MIN', 'MAX', 'KENTA', 'TRILING', 'FULL', 'KARE', 'YAMB'
+        '1', '2', '3', '4', '5', '6', 'MAX', 'MIN', 'KENTA', 'TRILING', 'FULL', 'KARE', 'YAMB'
     ];
 
     public static sumRows = [
@@ -118,6 +118,23 @@ class Board extends React.Component<any, any> {
         'SUM3': {},
         'TOTAL': '',
     };
+
+    public cells: any = {};
+    public currentCell: any = { row: null, col: null };
+
+    public constructor(props: any) {
+        super(props);
+
+        for (let i in Board.editableRows) {
+            for (let j in Board.editableCols) {
+                if (!this.cells.hasOwnProperty(Board.editableRows[i])) {
+                    this.cells[Board.editableRows[i]] = {};
+                }
+
+                this.cells[Board.editableRows[i]][Board.editableCols[j]] = React.createRef();
+            }
+        }
+    }
 
     public setValue = (dirtyValue: string, row: string, col: number): void => {
         const value: number = parseInt(dirtyValue);
@@ -188,8 +205,8 @@ class Board extends React.Component<any, any> {
         const state = this.state;
 
         for (let i in Board.sumRows) {
-            for (let j in Board.summableCols) {
-                state[Board.sumRows[i]][Board.summableCols[j]] = this.calculateCellSum(Board.sumRows[i], Board.summableCols[j]);
+            for (let j in Board.editableCols) {
+                state[Board.sumRows[i]][Board.editableCols[j]] = this.calculateCellSum(Board.sumRows[i], Board.editableCols[j]);
             }
         }
 
@@ -286,6 +303,58 @@ class Board extends React.Component<any, any> {
             state[row][col] = '';
             this.setState(state);
         }
+
+        const arrowKeys = [38, 40, 39, 37];
+        if (arrowKeys.includes(e.keyCode)) {
+            const nextCell: any = this.navigateCell(e.keyCode);
+            if (nextCell) {
+                nextCell.current.focus();
+            }
+        }
+    }
+
+    public navigateCell(keyCode: number) {
+
+        if (keyCode === 37 || keyCode === 39) { // LEFT/RIGHT
+            let add = 1;
+
+            if (keyCode === 37) {
+                add = -1;
+            }
+
+            const currentIndex: number = Board.editableCols.indexOf(this.currentCell.col);
+            let nextIndex: any = currentIndex + add;
+
+            const nextCol = Board.editableCols[nextIndex];
+
+            if (typeof nextCol !== 'undefined') {
+                return this.cells[this.currentCell.row][nextCol];
+            }
+        }
+
+        if (keyCode === 38 || keyCode === 40) { // UP/DOWN
+            let add = 1;
+
+            if (keyCode === 38) {
+                add = -1;
+            }
+
+            const currentIndex: number = Board.editableRows.indexOf(this.currentCell.row);
+            let nextIndex: any = currentIndex + add;
+
+            const nextRow = Board.editableRows[nextIndex];
+
+            if (typeof nextRow !== 'undefined') {
+                return this.cells[nextRow][this.currentCell.col];
+            }
+        }
+
+        return null;
+    };
+
+    onFocus(e: any, row: string, col: number) {
+        this.currentCell.row = row;
+        this.currentCell.col = col;
     }
 
     onBlur(e: any, row: string, col: number) {
@@ -347,7 +416,7 @@ class Board extends React.Component<any, any> {
                 <Row>
                     <HeaderCell>1</HeaderCell>
 
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <If condition={col === Board.COL_TOWARD}>
                                 <FontAwesomeIcon icon={faChevronDown}
@@ -360,6 +429,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, '1', col)}
                                    className={this.getClasses('1', col)}
                                    type='text'
+                                   ref={this.cells['1'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, '1', col)}
                             />
                         </Cell>
                     )}/>
@@ -367,7 +438,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>2</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, '2', col)}
                                    value={this.getValue('2', col)}
@@ -376,6 +447,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, '2', col)}
                                    className={this.getClasses('2', col)}
                                    type='text'
+                                   ref={this.cells['2'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, '2', col)}
                             />
                         </Cell>
                     )}/>
@@ -383,7 +456,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>3</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, '3', col)}
                                    value={this.getValue('3', col)}
@@ -392,6 +465,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, '3', col)}
                                    className={this.getClasses('3', col)}
                                    type='text'
+                                   ref={this.cells['3'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, '3', col)}
                             />
                         </Cell>
                     )}/>
@@ -399,7 +474,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>4</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, '4', col)}
                                    value={this.getValue('4', col)}
@@ -408,6 +483,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, '4', col)}
                                    className={this.getClasses('4', col)}
                                    type='text'
+                                   ref={this.cells['4'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, '4', col)}
                             />
                         </Cell>
                     )}/>
@@ -415,7 +492,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>5</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, '5', col)}
                                    value={this.getValue('5', col)}
@@ -424,6 +501,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, '5', col)}
                                    className={this.getClasses('5', col)}
                                    type='text'
+                                   ref={this.cells['5'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, '5', col)}
                             />
                         </Cell>
                     )}/>
@@ -431,7 +510,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>6</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, '6', col)}
                                    value={this.getValue('6', col)}
@@ -440,6 +519,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, '6', col)}
                                    className={this.getClasses('6', col)}
                                    type='text'
+                                   ref={this.cells['6'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, '6', col)}
                             />
                         </Cell>
                     )}/>
@@ -447,7 +528,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <SumRow>
                     <HeaderCell>Σ</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <SumInput
                                 value={this.getValue('SUM1', col)}
@@ -466,7 +547,7 @@ class Board extends React.Component<any, any> {
                 </SumRow>
                 <Row>
                     <HeaderCell>MAX</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <If condition={col === Board.COL_OPPOSITE}>
                                 <FontAwesomeIcon icon={faChevronUp}
@@ -479,6 +560,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, 'MAX', col)}
                                    className={this.getClasses('MAX', col)}
                                    type='text'
+                                   ref={this.cells['MAX'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, 'MAX', col)}
                             />
                         </Cell>
                     )}/>
@@ -486,7 +569,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>MIN</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <If condition={col === Board.COL_OPPOSITE}>
                                 <FontAwesomeIcon icon={faChevronDown}
@@ -499,6 +582,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, 'MIN', col)}
                                    className={this.getClasses('MIN', col)}
                                    type='text'
+                                   ref={this.cells['MIN'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, 'MIN', col)}
                             />
                         </Cell>
                     )}/>
@@ -506,7 +591,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <SumRow>
                     <HeaderCell>Σ</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <SumInput
                                 value={this.getValue('SUM2', col)}
@@ -525,7 +610,7 @@ class Board extends React.Component<any, any> {
                 </SumRow>
                 <Row>
                     <HeaderCell>KENTA</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', col)}
                                    value={this.getValue('KENTA', col)}
@@ -534,6 +619,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, 'KENTA', col)}
                                    className={this.getClasses('KENTA', col)}
                                    type='text'
+                                   ref={this.cells['KENTA'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, 'KENTA', col)}
                             />
                         </Cell>
                     )}/>
@@ -541,7 +628,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>TRILING</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', col)}
                                    value={this.getValue('TRILING', col)}
@@ -550,6 +637,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, 'TRILING', col)}
                                    className={this.getClasses('TRILING', col)}
                                    type='text'
+                                   ref={this.cells['TRILING'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, 'TRILING', col)}
                             />
                         </Cell>
                     )}/>
@@ -557,7 +646,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>FULL</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', col)}
                                    value={this.getValue('FULL', col)}
@@ -566,6 +655,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, 'FULL', col)}
                                    className={this.getClasses('FULL', col)}
                                    type='text'
+                                   ref={this.cells['FULL'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, 'FULL', col)}
                             />
                         </Cell>
                     )}/>
@@ -573,7 +664,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>POKER</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', col)}
                                    value={this.getValue('KARE', col)}
@@ -582,6 +673,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, 'KARE', col)}
                                    className={this.getClasses('KARE', col)}
                                    type='text'
+                                   ref={this.cells['KARE'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, 'KARE', col)}
                             />
                         </Cell>
                     )}/>
@@ -589,7 +682,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <Row>
                     <HeaderCell>YAMB</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <If condition={col === Board.COL_TOWARD}>
                                 <FontAwesomeIcon icon={faChevronUp}
@@ -602,6 +695,8 @@ class Board extends React.Component<any, any> {
                                    onBlur={(e: any) => this.onBlur(e, 'YAMB', col)}
                                    className={this.getClasses('YAMB', col)}
                                    type='text'
+                                   ref={this.cells['YAMB'][col]}
+                                   onFocus={(e: any) => this.onFocus(e, 'YAMB', col)}
                             />
                         </Cell>
                     )}/>
@@ -609,7 +704,7 @@ class Board extends React.Component<any, any> {
                 </Row>
                 <SumRow>
                     <HeaderCell>Σ</HeaderCell>
-                    <Each items={Board.summableCols} renderItem={(col: number, index: number) => (
+                    <Each items={Board.editableCols} renderItem={(col: number, index: number) => (
                         <Cell key={index}>
                             <SumInput
                                 value={this.getValue('SUM3', col)}
