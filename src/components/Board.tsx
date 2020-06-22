@@ -84,28 +84,32 @@ class Board extends React.Component<any, any> {
         Board.COL_M,
     ];
 
+    public static editableRows = [
+        "1", "2", "3", "4", "5", "6", 'MIN', 'MAX', 'KENTA', 'TRILING', 'FULL', 'KARE', 'YAMB'
+    ];
+
     public static sumRows = [
         'SUM1', 'SUM2', 'SUM3'
     ]
 
     public readonly state: any = {
-        1: {},
-        2: {},
-        3: {},
-        4: {},
-        5: {},
-        6: {},
-        SUM1: {},
-        MIN: {},
-        MAX: {},
-        SUM2: {},
-        KENTA: {},
-        TRILING: {},
-        FULL: {},
-        KARE: {},
-        YAMB: {},
-        SUM3: {},
-        TOTAL: '',
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {},
+        "5": {},
+        "6": {},
+        "SUM1": {},
+        "MIN": {},
+        "MAX": {},
+        "SUM2": {},
+        "KENTA": {},
+        "TRILING": {},
+        "FULL": {},
+        "KARE": {},
+        "YAMB": {},
+        "SUM3": {},
+        "TOTAL": '',
     };
 
     public setValue = (dirtyValue: string, row: string, col: number): void => {
@@ -216,7 +220,7 @@ class Board extends React.Component<any, any> {
 
     public getSumCols = (sumRow: string): any => {
         if (sumRow === 'SUM1') {
-            return [1, 2, 3, 4, 5, 6];
+            return ["1", "2", "3", "4", "5", "6"];
         }
 
         if (sumRow === 'SUM3') {
