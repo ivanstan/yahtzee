@@ -71,7 +71,7 @@ class Board extends React.Component<any, any> {
     public static COL_M = 9;
     public static COL_SUM = 10;
 
-    public static sumCols = [
+    public static summableCols = [
         Board.COL_UP,
         Board.COL_UP_DOWN,
         Board.COL_DOWN,
@@ -83,6 +83,10 @@ class Board extends React.Component<any, any> {
         Board.COL_O,
         Board.COL_M,
     ];
+
+    public static sumRows = [
+        'SUM1', 'SUM2', 'SUM3'
+    ]
 
     public readonly state: any = {
         1: {},
@@ -127,12 +131,10 @@ class Board extends React.Component<any, any> {
     };
 
     public calculateTotal = (): void => {
-        const sumRows = ['SUM1', 'SUM2', 'SUM3'];
-
         let total = 0;
 
-        for (let i in sumRows) {
-            const value = this.state[sumRows[i]][Board.COL_SUM];
+        for (let i in Board.sumRows) {
+            const value = this.state[Board.sumRows[i]][Board.COL_SUM];
 
             if (!isNaN(value)) {
                 total += value;
@@ -145,33 +147,30 @@ class Board extends React.Component<any, any> {
     }
 
     public calculateColSum = (): void => {
-        const sumRows = ['SUM1', 'SUM2', 'SUM3'];
-
         const state = this.state;
 
-        for (let i in sumRows) {
+        for (let i in Board.sumRows) {
             let sum = 0;
 
-            for (let j in state[sumRows[i]]) {
-                let value = parseInt(state[sumRows[i]][j]);
+            for (let j in state[Board.sumRows[i]]) {
+                let value = parseInt(state[Board.sumRows[i]][j]);
                 if (!isNaN(value)) {
                     sum += value;
                 }
             }
 
-            state[sumRows[i]][Board.COL_SUM] = sum;
+            state[Board.sumRows[i]][Board.COL_SUM] = sum;
         }
 
         this.setState(state);
     }
 
     public calculateRowSum = (): void => {
-        const sumRows = ['SUM1', 'SUM2', 'SUM3'];
         const state = this.state;
 
-        for (let i in sumRows) {
-            for (let j in Board.sumCols) {
-                state[sumRows[i]][Board.sumCols[j]] = this.calculateCellSum(sumRows[i], Board.sumCols[j]);
+        for (let i in Board.sumRows) {
+            for (let j in Board.summableCols) {
+                state[Board.sumRows[i]][Board.summableCols[j]] = this.calculateCellSum(Board.sumRows[i], Board.summableCols[j]);
             }
         }
 
@@ -227,10 +226,7 @@ class Board extends React.Component<any, any> {
         return [];
     };
 
-    public getValue = (row: string, col: number): number | string => {
-        return this.state[row][col] || '';
-    };
-
+    public getValue = (row: string, col: number): number | string => this.state[row][col] || '';
     public isSumRow = (row: string): boolean => row === 'SUM1' || row === 'SUM2' || row === 'SUM3';
 
     public isEnabled = (row: string, col: number): boolean => {
@@ -318,8 +314,9 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("1", Board.COL_OPPOSITE)}
                                type="text"/>
                     </Cell>
-                    <Cell style={{position: 'relative'}}>
-                        <FontAwesomeIcon icon={faChevronDown} style={{position: 'absolute', fontSize: 11, 'left': 3, top: 0}}/>
+                    <Cell style={{ position: 'relative' }}>
+                        <FontAwesomeIcon icon={faChevronDown}
+                                         style={{ position: 'absolute', fontSize: 11, 'left': 3, top: 0 }}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "1", Board.COL_TOWARD)}
                                value={this.getValue("1", Board.COL_TOWARD)}
                                disabled={!this.isEnabled("1", Board.COL_TOWARD)}
@@ -766,8 +763,9 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("MAX", Board.COL_D)}
                                type="text"/>
                     </Cell>
-                    <Cell style={{position: 'relative'}}>
-                        <FontAwesomeIcon icon={faChevronUp} style={{position: 'absolute', fontSize: 11, 'left': 3, top: 0}}/>
+                    <Cell style={{ position: 'relative' }}>
+                        <FontAwesomeIcon icon={faChevronUp}
+                                         style={{ position: 'absolute', fontSize: 11, 'left': 3, top: 0 }}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_OPPOSITE)}
                                value={this.getValue("MAX", Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled("MAX", Board.COL_OPPOSITE)}
@@ -831,8 +829,9 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("MIN", Board.COL_D)}
                                type="text"/>
                     </Cell>
-                    <Cell style={{position: 'relative'}}>
-                        <FontAwesomeIcon icon={faChevronDown} style={{position: 'absolute', fontSize: 11, 'right': 3, bottom: 0}}/>
+                    <Cell style={{ position: 'relative' }}>
+                        <FontAwesomeIcon icon={faChevronDown}
+                                         style={{ position: 'absolute', fontSize: 11, 'right': 3, bottom: 0 }}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_OPPOSITE)}
                                value={this.getValue("MIN", Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled("MIN", Board.COL_OPPOSITE)}
@@ -1227,8 +1226,9 @@ class Board extends React.Component<any, any> {
                                disabled={!this.isEnabled("YAMB", Board.COL_OPPOSITE)}
                                type="text"/>
                     </Cell>
-                    <Cell style={{position: 'relative'}}>
-                        <FontAwesomeIcon icon={faChevronUp} style={{position: 'absolute', fontSize: 11, 'right': 3, bottom: 0}}/>
+                    <Cell style={{ position: 'relative' }}>
+                        <FontAwesomeIcon icon={faChevronUp}
+                                         style={{ position: 'absolute', fontSize: 11, 'right': 3, bottom: 0 }}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "YAMB", Board.COL_TOWARD)}
                                value={this.getValue("YAMB", Board.COL_TOWARD)}
                                disabled={!this.isEnabled("YAMB", Board.COL_TOWARD)}
