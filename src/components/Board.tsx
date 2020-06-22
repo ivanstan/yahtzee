@@ -179,6 +179,19 @@ class Board extends React.Component<any, any> {
     };
 
     public calculateCellSum = (row: string, col: number): number | string => {
+
+        if (row === 'SUM2') {
+            let sum = 0;
+
+            const multiplier = this.state[1][col];
+            const min = this.state["MIN"][col];
+            const max = this.state["MAX"][col];
+
+            sum = (max - min) * multiplier;
+
+            return sum > 0 ? sum : '';
+        }
+
         let sum = 0;
         const sumCols = this.getSumCols(row);
 
@@ -195,16 +208,16 @@ class Board extends React.Component<any, any> {
             }
         }
 
+        if (row === 'SUM1' && sum >= 60) {
+            sum += 30;
+        }
+
         return sum > 0 ? sum : '';
     };
 
     public getSumCols = (sumRow: string): any => {
         if (sumRow === 'SUM1') {
             return [1, 2, 3, 4, 5, 6];
-        }
-
-        if (sumRow === 'SUM2') {
-            return ['MIN', 'MAX'];
         }
 
         if (sumRow === 'SUM3') {
@@ -716,71 +729,6 @@ class Board extends React.Component<any, any> {
                     </Cell>
                 </SumRow>
                 <Row>
-                    <HeaderCell>MIN</HeaderCell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_UP)}
-                               value={this.getValue("MIN", Board.COL_UP)}
-                               disabled={!this.isEnabled("MIN", Board.COL_UP)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_UP_DOWN)}
-                               value={this.getValue("MIN", Board.COL_UP_DOWN)}
-                               disabled={!this.isEnabled("MIN", Board.COL_UP_DOWN)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_DOWN)}
-                               value={this.getValue("MIN", Board.COL_DOWN)}
-                               disabled={!this.isEnabled("MIN", Board.COL_DOWN)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_N)}
-                               value={this.getValue("MIN", Board.COL_N)}
-                               disabled={!this.isEnabled("MIN", Board.COL_N)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_R)}
-                               value={this.getValue("MIN", Board.COL_R)}
-                               disabled={!this.isEnabled("MIN", Board.COL_R)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_D)}
-                               value={this.getValue("MIN", Board.COL_D)}
-                               disabled={!this.isEnabled("MIN", Board.COL_D)}
-                               type="text"/>
-                    </Cell>
-                    <Cell style={{position: 'relative'}}>
-                        <FontAwesomeIcon icon={faChevronUp} style={{position: 'absolute', fontSize: 11, 'left': 3, top: 0}}/>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_OPPOSITE)}
-                               value={this.getValue("MIN", Board.COL_OPPOSITE)}
-                               disabled={!this.isEnabled("MIN", Board.COL_OPPOSITE)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_TOWARD)}
-                               value={this.getValue("MIN", Board.COL_TOWARD)}
-                               disabled={!this.isEnabled("MIN", Board.COL_TOWARD)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_O)}
-                               value={this.getValue("MIN", Board.COL_O)}
-                               disabled={!this.isEnabled("MIN", Board.COL_O)}
-                               type="text"/>
-                    </Cell>
-                    <Cell>
-                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_M)}
-                               value={this.getValue("MIN", Board.COL_M)}
-                               disabled={!this.isEnabled("MIN", Board.COL_M)}
-                               type="text"/>
-                    </Cell>
-                    <Cell/>
-                </Row>
-                <Row>
                     <HeaderCell>MAX</HeaderCell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_UP)}
@@ -819,7 +767,7 @@ class Board extends React.Component<any, any> {
                                type="text"/>
                     </Cell>
                     <Cell style={{position: 'relative'}}>
-                        <FontAwesomeIcon icon={faChevronDown} style={{position: 'absolute', fontSize: 11, 'right': 3, bottom: 0}}/>
+                        <FontAwesomeIcon icon={faChevronUp} style={{position: 'absolute', fontSize: 11, 'left': 3, top: 0}}/>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_OPPOSITE)}
                                value={this.getValue("MAX", Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled("MAX", Board.COL_OPPOSITE)}
@@ -841,6 +789,71 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, "MAX", Board.COL_M)}
                                value={this.getValue("MAX", Board.COL_M)}
                                disabled={!this.isEnabled("MAX", Board.COL_M)}
+                               type="text"/>
+                    </Cell>
+                    <Cell/>
+                </Row>
+                <Row>
+                    <HeaderCell>MIN</HeaderCell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_UP)}
+                               value={this.getValue("MIN", Board.COL_UP)}
+                               disabled={!this.isEnabled("MIN", Board.COL_UP)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_UP_DOWN)}
+                               value={this.getValue("MIN", Board.COL_UP_DOWN)}
+                               disabled={!this.isEnabled("MIN", Board.COL_UP_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_DOWN)}
+                               value={this.getValue("MIN", Board.COL_DOWN)}
+                               disabled={!this.isEnabled("MIN", Board.COL_DOWN)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_N)}
+                               value={this.getValue("MIN", Board.COL_N)}
+                               disabled={!this.isEnabled("MIN", Board.COL_N)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_R)}
+                               value={this.getValue("MIN", Board.COL_R)}
+                               disabled={!this.isEnabled("MIN", Board.COL_R)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_D)}
+                               value={this.getValue("MIN", Board.COL_D)}
+                               disabled={!this.isEnabled("MIN", Board.COL_D)}
+                               type="text"/>
+                    </Cell>
+                    <Cell style={{position: 'relative'}}>
+                        <FontAwesomeIcon icon={faChevronDown} style={{position: 'absolute', fontSize: 11, 'right': 3, bottom: 0}}/>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_OPPOSITE)}
+                               value={this.getValue("MIN", Board.COL_OPPOSITE)}
+                               disabled={!this.isEnabled("MIN", Board.COL_OPPOSITE)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_TOWARD)}
+                               value={this.getValue("MIN", Board.COL_TOWARD)}
+                               disabled={!this.isEnabled("MIN", Board.COL_TOWARD)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_O)}
+                               value={this.getValue("MIN", Board.COL_O)}
+                               disabled={!this.isEnabled("MIN", Board.COL_O)}
+                               type="text"/>
+                    </Cell>
+                    <Cell>
+                        <Input onChange={(e: any) => this.setValue(e.target.value, "MIN", Board.COL_M)}
+                               value={this.getValue("MIN", Board.COL_M)}
+                               disabled={!this.isEnabled("MIN", Board.COL_M)}
                                type="text"/>
                     </Cell>
                     <Cell/>
@@ -1107,7 +1120,7 @@ class Board extends React.Component<any, any> {
                     <Cell/>
                 </Row>
                 <Row>
-                    <HeaderCell>KARE</HeaderCell>
+                    <HeaderCell>POKER</HeaderCell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, "KARE", Board.COL_UP)}
                                value={this.getValue("KARE", Board.COL_UP)}
