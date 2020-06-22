@@ -301,8 +301,6 @@ class Board extends React.Component<any, any> {
                 validValues.push(values[i] * rowNum);
             }
 
-            console.log(validValues, value);
-
             if (!validValues.includes(value)) {
                 e.currentTarget.focus();
             }
