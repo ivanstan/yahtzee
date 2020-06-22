@@ -289,7 +289,24 @@ class Board extends React.Component<any, any> {
     }
 
     onBlur(e: any, row: string, col: number) {
+        const simple = ['1', '2', '3', '4', '5', '6'];
+        const rowNum = parseInt(row);
+        const value = parseInt(e.currentTarget.value);
 
+        if (!isNaN(value) && simple.includes(row)) {
+            const validValues = [];
+            const values = [0, 1, 2, 3, 4, 5];
+
+            for (let i in values) {
+                validValues.push(values[i] * rowNum);
+            }
+
+            console.log(validValues, value);
+
+            if (!validValues.includes(value)) {
+                e.currentTarget.focus();
+            }
+        }
     }
 
     getClasses(row: string, col: number) {
@@ -342,7 +359,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('1', col)}
                                    disabled={!this.isEnabled('1', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, '1', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, '1', col)}
+                                   onBlur={(e: any) => this.onBlur(e, '1', col)}
                                    className={this.getClasses('1', col)}
                                    type='text'
                             />
@@ -358,7 +375,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('2', col)}
                                    disabled={!this.isEnabled('2', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, '2', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, '2', col)}
+                                   onBlur={(e: any) => this.onBlur(e, '2', col)}
                                    className={this.getClasses('2', col)}
                                    type='text'
                             />
@@ -374,7 +391,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('3', col)}
                                    disabled={!this.isEnabled('3', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, '3', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, '3', col)}
+                                   onBlur={(e: any) => this.onBlur(e, '3', col)}
                                    className={this.getClasses('3', col)}
                                    type='text'
                             />
@@ -390,7 +407,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('4', col)}
                                    disabled={!this.isEnabled('4', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, '4', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, '4', col)}
+                                   onBlur={(e: any) => this.onBlur(e, '4', col)}
                                    className={this.getClasses('4', col)}
                                    type='text'
                             />
@@ -406,7 +423,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('5', col)}
                                    disabled={!this.isEnabled('5', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, '5', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, '5', col)}
+                                   onBlur={(e: any) => this.onBlur(e, '5', col)}
                                    className={this.getClasses('5', col)}
                                    type='text'
                             />
@@ -422,7 +439,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('6', col)}
                                    disabled={!this.isEnabled('6', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, '6', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, '6', col)}
+                                   onBlur={(e: any) => this.onBlur(e, '6', col)}
                                    className={this.getClasses('6', col)}
                                    type='text'
                             />
@@ -461,7 +478,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('MAX', col)}
                                    disabled={!this.isEnabled('MAX', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, 'MAX', col)}
+                                   onBlur={(e: any) => this.onBlur(e, 'MAX', col)}
                                    className={this.getClasses('MAX', col)}
                                    type='text'
                             />
@@ -481,7 +498,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('MIN', col)}
                                    disabled={!this.isEnabled('MIN', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, 'MIN', col)}
+                                   onBlur={(e: any) => this.onBlur(e, 'MIN', col)}
                                    className={this.getClasses('MIN', col)}
                                    type='text'
                             />
@@ -516,7 +533,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('KENTA', col)}
                                    disabled={!this.isEnabled('KENTA', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, 'KENTA', col)}
+                                   onBlur={(e: any) => this.onBlur(e, 'KENTA', col)}
                                    className={this.getClasses('KENTA', col)}
                                    type='text'
                             />
@@ -532,7 +549,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('TRILING', col)}
                                    disabled={!this.isEnabled('TRILING', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, 'TRILING', col)}
+                                   onBlur={(e: any) => this.onBlur(e, 'TRILING', col)}
                                    className={this.getClasses('TRILING', col)}
                                    type='text'
                             />
@@ -548,7 +565,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('FULL', col)}
                                    disabled={!this.isEnabled('FULL', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, 'FULL', col)}
+                                   onBlur={(e: any) => this.onBlur(e, 'FULL', col)}
                                    className={this.getClasses('FULL', col)}
                                    type='text'
                             />
@@ -564,7 +581,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('KARE', col)}
                                    disabled={!this.isEnabled('KARE', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, 'KARE', col)}
+                                   onBlur={(e: any) => this.onBlur(e, 'KARE', col)}
                                    className={this.getClasses('KARE', col)}
                                    type='text'
                             />
@@ -584,7 +601,7 @@ class Board extends React.Component<any, any> {
                                    value={this.getValue('YAMB', col)}
                                    disabled={!this.isEnabled('YAMB', col)}
                                    onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', col)}
-                                   onBlur={(e: any) => this.onKeyPress(e, 'YAMB', col)}
+                                   onBlur={(e: any) => this.onBlur(e, 'YAMB', col)}
                                    className={this.getClasses('YAMB', col)}
                                    type='text'
                             />
