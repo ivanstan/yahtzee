@@ -165,6 +165,10 @@ class Board extends React.Component<any, any> {
             let sum = 0;
 
             for (let j in state[Board.sumRows[i]]) {
+                if (!state[Board.sumRows[i]].hasOwnProperty(j)) {
+                    continue;
+                }
+
                 let value = parseInt(state[Board.sumRows[i]][j]);
                 if (!isNaN(value)) {
                     sum += value;
@@ -269,6 +273,18 @@ class Board extends React.Component<any, any> {
         return true;
     };
 
+    onKeyPress(e: any, row: string, col: number) {
+        if (e.keyCode === 13) {
+            e.target.blur();
+        }
+
+        if ((e.keyCode === 46 || e.keyCode === 8) && col !== Board.COL_SUM && !this.isSumRow(row)) {
+            let state = this.state;
+            state[row][col] = '';
+            this.setState(state);
+        }
+    }
+
     render() {
         return (
             <Table>
@@ -308,43 +324,57 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_UP)}
                                value={this.getValue('1', Board.COL_UP)}
                                disabled={!this.isEnabled('1', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_UP_DOWN)}
                                value={this.getValue('1', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('1', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_DOWN)}
                                value={this.getValue('1', Board.COL_DOWN)}
                                disabled={!this.isEnabled('1', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_N)}
                                value={this.getValue('1', Board.COL_N)}
                                disabled={!this.isEnabled('1', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_R)}
                                value={this.getValue('1', Board.COL_R)}
                                disabled={!this.isEnabled('1', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_D)}
                                value={this.getValue('1', Board.COL_D)}
                                disabled={!this.isEnabled('1', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_OPPOSITE)}
                                value={this.getValue('1', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('1', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell style={{ position: 'relative' }}>
                         <FontAwesomeIcon icon={faChevronDown}
@@ -352,19 +382,25 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_TOWARD)}
                                value={this.getValue('1', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('1', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_O)}
                                value={this.getValue('1', Board.COL_O)}
                                disabled={!this.isEnabled('1', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '1', Board.COL_M)}
                                value={this.getValue('1', Board.COL_M)}
                                disabled={!this.isEnabled('1', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '1', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -374,61 +410,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_UP)}
                                value={this.getValue('2', Board.COL_UP)}
                                disabled={!this.isEnabled('2', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_UP_DOWN)}
                                value={this.getValue('2', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('2', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_DOWN)}
                                value={this.getValue('2', Board.COL_DOWN)}
                                disabled={!this.isEnabled('2', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_N)}
                                value={this.getValue('2', Board.COL_N)}
                                disabled={!this.isEnabled('2', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_R)}
                                value={this.getValue('2', Board.COL_R)}
                                disabled={!this.isEnabled('2', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_D)}
                                value={this.getValue('2', Board.COL_D)}
                                disabled={!this.isEnabled('2', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_OPPOSITE)}
                                value={this.getValue('2', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('2', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_TOWARD)}
                                value={this.getValue('2', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('2', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_O)}
                                value={this.getValue('2', Board.COL_O)}
                                disabled={!this.isEnabled('2', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '2', Board.COL_M)}
                                value={this.getValue('2', Board.COL_M)}
                                disabled={!this.isEnabled('2', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '2', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -438,61 +494,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_UP)}
                                value={this.getValue('3', Board.COL_UP)}
                                disabled={!this.isEnabled('3', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_UP_DOWN)}
                                value={this.getValue('3', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('3', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_DOWN)}
                                value={this.getValue('3', Board.COL_DOWN)}
                                disabled={!this.isEnabled('3', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_N)}
                                value={this.getValue('3', Board.COL_N)}
                                disabled={!this.isEnabled('3', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_R)}
                                value={this.getValue('3', Board.COL_R)}
                                disabled={!this.isEnabled('3', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_D)}
                                value={this.getValue('3', Board.COL_D)}
                                disabled={!this.isEnabled('3', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_OPPOSITE)}
                                value={this.getValue('3', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('3', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_TOWARD)}
                                value={this.getValue('3', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('3', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_O)}
                                value={this.getValue('3', Board.COL_O)}
                                disabled={!this.isEnabled('3', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '3', Board.COL_M)}
                                value={this.getValue('3', Board.COL_M)}
                                disabled={!this.isEnabled('3', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '3', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -502,61 +578,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_UP)}
                                value={this.getValue('4', Board.COL_UP)}
                                disabled={!this.isEnabled('4', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_UP_DOWN)}
                                value={this.getValue('4', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('4', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_DOWN)}
                                value={this.getValue('4', Board.COL_DOWN)}
                                disabled={!this.isEnabled('4', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_N)}
                                value={this.getValue('4', Board.COL_N)}
                                disabled={!this.isEnabled('4', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_R)}
                                value={this.getValue('4', Board.COL_R)}
                                disabled={!this.isEnabled('4', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_D)}
                                value={this.getValue('4', Board.COL_D)}
                                disabled={!this.isEnabled('4', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_OPPOSITE)}
                                value={this.getValue('4', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('4', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_TOWARD)}
                                value={this.getValue('4', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('4', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_O)}
                                value={this.getValue('4', Board.COL_O)}
                                disabled={!this.isEnabled('4', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '4', Board.COL_M)}
                                value={this.getValue('4', Board.COL_M)}
                                disabled={!this.isEnabled('4', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '4', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -566,61 +662,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_UP)}
                                value={this.getValue('5', Board.COL_UP)}
                                disabled={!this.isEnabled('5', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_UP_DOWN)}
                                value={this.getValue('5', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('5', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_DOWN)}
                                value={this.getValue('5', Board.COL_DOWN)}
                                disabled={!this.isEnabled('5', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_N)}
                                value={this.getValue('5', Board.COL_N)}
                                disabled={!this.isEnabled('5', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_R)}
                                value={this.getValue('5', Board.COL_R)}
                                disabled={!this.isEnabled('5', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_D)}
                                value={this.getValue('5', Board.COL_D)}
                                disabled={!this.isEnabled('5', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_OPPOSITE)}
                                value={this.getValue('5', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('5', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_TOWARD)}
                                value={this.getValue('5', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('5', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_O)}
                                value={this.getValue('5', Board.COL_O)}
                                disabled={!this.isEnabled('5', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '5', Board.COL_M)}
                                value={this.getValue('5', Board.COL_M)}
                                disabled={!this.isEnabled('5', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '5', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -630,61 +746,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_UP)}
                                value={this.getValue('6', Board.COL_UP)}
                                disabled={!this.isEnabled('6', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_UP_DOWN)}
                                value={this.getValue('6', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('6', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_DOWN)}
                                value={this.getValue('6', Board.COL_DOWN)}
                                disabled={!this.isEnabled('6', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_N)}
                                value={this.getValue('6', Board.COL_N)}
                                disabled={!this.isEnabled('6', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_R)}
                                value={this.getValue('6', Board.COL_R)}
                                disabled={!this.isEnabled('6', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_D)}
                                value={this.getValue('6', Board.COL_D)}
                                disabled={!this.isEnabled('6', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_OPPOSITE)}
                                value={this.getValue('6', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('6', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_TOWARD)}
                                value={this.getValue('6', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('6', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_O)}
                                value={this.getValue('6', Board.COL_O)}
                                disabled={!this.isEnabled('6', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, '6', Board.COL_M)}
                                value={this.getValue('6', Board.COL_M)}
                                disabled={!this.isEnabled('6', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, '6', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -694,67 +830,89 @@ class Board extends React.Component<any, any> {
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_UP)}
                                   value={this.getValue('SUM1', Board.COL_UP)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_UP)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_UP)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_UP_DOWN)}
                                   value={this.getValue('SUM1', Board.COL_UP_DOWN)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_UP_DOWN)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_UP_DOWN)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_DOWN)}
                                   value={this.getValue('SUM1', Board.COL_DOWN)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_DOWN)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_DOWN)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_N)}
                                   value={this.getValue('SUM1', Board.COL_N)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_N)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_N)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_R)}
                                   value={this.getValue('SUM1', Board.COL_R)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_R)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_R)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_D)}
                                   value={this.getValue('SUM1', Board.COL_D)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_D)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_D)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_OPPOSITE)}
                                   value={this.getValue('SUM1', Board.COL_OPPOSITE)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_OPPOSITE)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_OPPOSITE)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_TOWARD)}
                                   value={this.getValue('SUM1', Board.COL_TOWARD)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_TOWARD)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_TOWARD)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_O)}
                                   value={this.getValue('SUM1', Board.COL_O)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_O)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_O)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_M)}
                                   value={this.getValue('SUM1', Board.COL_M)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_M)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_M)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM1', Board.COL_SUM)}
                                   value={this.getValue('SUM1', Board.COL_SUM)}
                                   disabled={!this.isEnabled('SUM1', Board.COL_SUM)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM1', Board.COL_SUM)}
+                                  type='text'
+                        />
                     </Cell>
                 </SumRow>
                 <Row>
@@ -763,37 +921,49 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_UP)}
                                value={this.getValue('MAX', Board.COL_UP)}
                                disabled={!this.isEnabled('MAX', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_UP_DOWN)}
                                value={this.getValue('MAX', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('MAX', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_DOWN)}
                                value={this.getValue('MAX', Board.COL_DOWN)}
                                disabled={!this.isEnabled('MAX', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_N)}
                                value={this.getValue('MAX', Board.COL_N)}
                                disabled={!this.isEnabled('MAX', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_R)}
                                value={this.getValue('MAX', Board.COL_R)}
                                disabled={!this.isEnabled('MAX', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_D)}
                                value={this.getValue('MAX', Board.COL_D)}
                                disabled={!this.isEnabled('MAX', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell style={{ position: 'relative' }}>
                         <FontAwesomeIcon icon={faChevronUp}
@@ -801,25 +971,33 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_OPPOSITE)}
                                value={this.getValue('MAX', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('MAX', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_TOWARD)}
                                value={this.getValue('MAX', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('MAX', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_O)}
                                value={this.getValue('MAX', Board.COL_O)}
                                disabled={!this.isEnabled('MAX', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MAX', Board.COL_M)}
                                value={this.getValue('MAX', Board.COL_M)}
                                disabled={!this.isEnabled('MAX', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MAX', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -829,37 +1007,49 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_UP)}
                                value={this.getValue('MIN', Board.COL_UP)}
                                disabled={!this.isEnabled('MIN', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_UP_DOWN)}
                                value={this.getValue('MIN', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('MIN', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_DOWN)}
                                value={this.getValue('MIN', Board.COL_DOWN)}
                                disabled={!this.isEnabled('MIN', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_N)}
                                value={this.getValue('MIN', Board.COL_N)}
                                disabled={!this.isEnabled('MIN', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_R)}
                                value={this.getValue('MIN', Board.COL_R)}
                                disabled={!this.isEnabled('MIN', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_D)}
                                value={this.getValue('MIN', Board.COL_D)}
                                disabled={!this.isEnabled('MIN', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell style={{ position: 'relative' }}>
                         <FontAwesomeIcon icon={faChevronDown}
@@ -867,25 +1057,33 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_OPPOSITE)}
                                value={this.getValue('MIN', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('MIN', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_TOWARD)}
                                value={this.getValue('MIN', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('MIN', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_O)}
                                value={this.getValue('MIN', Board.COL_O)}
                                disabled={!this.isEnabled('MIN', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'MIN', Board.COL_M)}
                                value={this.getValue('MIN', Board.COL_M)}
                                disabled={!this.isEnabled('MIN', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'MIN', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -895,67 +1093,89 @@ class Board extends React.Component<any, any> {
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_UP)}
                                   value={this.getValue('SUM2', Board.COL_UP)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_UP)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_UP)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_UP_DOWN)}
                                   value={this.getValue('SUM2', Board.COL_UP_DOWN)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_UP_DOWN)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_UP_DOWN)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_DOWN)}
                                   value={this.getValue('SUM2', Board.COL_DOWN)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_DOWN)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_DOWN)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_N)}
                                   value={this.getValue('SUM2', Board.COL_N)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_N)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_N)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_R)}
                                   value={this.getValue('SUM2', Board.COL_R)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_R)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_R)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_D)}
                                   value={this.getValue('SUM2', Board.COL_D)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_D)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_D)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_OPPOSITE)}
                                   value={this.getValue('SUM2', Board.COL_OPPOSITE)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_OPPOSITE)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_OPPOSITE)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_TOWARD)}
                                   value={this.getValue('SUM2', Board.COL_TOWARD)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_TOWARD)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_TOWARD)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_O)}
                                   value={this.getValue('SUM2', Board.COL_O)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_O)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_O)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_M)}
                                   value={this.getValue('SUM2', Board.COL_M)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_M)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_M)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM2', Board.COL_SUM)}
                                   value={this.getValue('SUM2', Board.COL_SUM)}
                                   disabled={!this.isEnabled('SUM2', Board.COL_SUM)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM2', Board.COL_SUM)}
+                                  type='text'
+                        />
                     </Cell>
                 </SumRow>
                 <Row>
@@ -964,61 +1184,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_UP)}
                                value={this.getValue('KENTA', Board.COL_UP)}
                                disabled={!this.isEnabled('KENTA', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_UP_DOWN)}
                                value={this.getValue('KENTA', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('KENTA', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_DOWN)}
                                value={this.getValue('KENTA', Board.COL_DOWN)}
                                disabled={!this.isEnabled('KENTA', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_N)}
                                value={this.getValue('KENTA', Board.COL_N)}
                                disabled={!this.isEnabled('KENTA', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_R)}
                                value={this.getValue('KENTA', Board.COL_R)}
                                disabled={!this.isEnabled('KENTA', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_D)}
                                value={this.getValue('KENTA', Board.COL_D)}
                                disabled={!this.isEnabled('KENTA', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_OPPOSITE)}
                                value={this.getValue('KENTA', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('KENTA', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_TOWARD)}
                                value={this.getValue('KENTA', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('KENTA', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_O)}
                                value={this.getValue('KENTA', Board.COL_O)}
                                disabled={!this.isEnabled('KENTA', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KENTA', Board.COL_M)}
                                value={this.getValue('KENTA', Board.COL_M)}
                                disabled={!this.isEnabled('KENTA', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KENTA', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -1028,61 +1268,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_UP)}
                                value={this.getValue('TRILING', Board.COL_UP)}
                                disabled={!this.isEnabled('TRILING', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_UP_DOWN)}
                                value={this.getValue('TRILING', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('TRILING', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_DOWN)}
                                value={this.getValue('TRILING', Board.COL_DOWN)}
                                disabled={!this.isEnabled('TRILING', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_N)}
                                value={this.getValue('TRILING', Board.COL_N)}
                                disabled={!this.isEnabled('TRILING', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_R)}
                                value={this.getValue('TRILING', Board.COL_R)}
                                disabled={!this.isEnabled('TRILING', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_D)}
                                value={this.getValue('TRILING', Board.COL_D)}
                                disabled={!this.isEnabled('TRILING', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_OPPOSITE)}
                                value={this.getValue('TRILING', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('TRILING', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_TOWARD)}
                                value={this.getValue('TRILING', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('TRILING', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_O)}
                                value={this.getValue('TRILING', Board.COL_O)}
                                disabled={!this.isEnabled('TRILING', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'TRILING', Board.COL_M)}
                                value={this.getValue('TRILING', Board.COL_M)}
                                disabled={!this.isEnabled('TRILING', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'TRILING', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -1092,61 +1352,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_UP)}
                                value={this.getValue('FULL', Board.COL_UP)}
                                disabled={!this.isEnabled('FULL', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_UP_DOWN)}
                                value={this.getValue('FULL', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('FULL', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_DOWN)}
                                value={this.getValue('FULL', Board.COL_DOWN)}
                                disabled={!this.isEnabled('FULL', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_N)}
                                value={this.getValue('FULL', Board.COL_N)}
                                disabled={!this.isEnabled('FULL', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_R)}
                                value={this.getValue('FULL', Board.COL_R)}
                                disabled={!this.isEnabled('FULL', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_D)}
                                value={this.getValue('FULL', Board.COL_D)}
                                disabled={!this.isEnabled('FULL', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_OPPOSITE)}
                                value={this.getValue('FULL', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('FULL', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_TOWARD)}
                                value={this.getValue('FULL', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('FULL', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_O)}
                                value={this.getValue('FULL', Board.COL_O)}
                                disabled={!this.isEnabled('FULL', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'FULL', Board.COL_M)}
                                value={this.getValue('FULL', Board.COL_M)}
                                disabled={!this.isEnabled('FULL', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'FULL', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -1156,61 +1436,81 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_UP)}
                                value={this.getValue('KARE', Board.COL_UP)}
                                disabled={!this.isEnabled('KARE', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_UP_DOWN)}
                                value={this.getValue('KARE', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('KARE', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_DOWN)}
                                value={this.getValue('KARE', Board.COL_DOWN)}
                                disabled={!this.isEnabled('KARE', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_N)}
                                value={this.getValue('KARE', Board.COL_N)}
                                disabled={!this.isEnabled('KARE', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_R)}
                                value={this.getValue('KARE', Board.COL_R)}
                                disabled={!this.isEnabled('KARE', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_D)}
                                value={this.getValue('KARE', Board.COL_D)}
                                disabled={!this.isEnabled('KARE', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_OPPOSITE)}
                                value={this.getValue('KARE', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('KARE', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_TOWARD)}
                                value={this.getValue('KARE', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('KARE', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_O)}
                                value={this.getValue('KARE', Board.COL_O)}
                                disabled={!this.isEnabled('KARE', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'KARE', Board.COL_M)}
                                value={this.getValue('KARE', Board.COL_M)}
                                disabled={!this.isEnabled('KARE', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'KARE', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -1220,43 +1520,57 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_UP)}
                                value={this.getValue('YAMB', Board.COL_UP)}
                                disabled={!this.isEnabled('YAMB', Board.COL_UP)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_UP)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_UP_DOWN)}
                                value={this.getValue('YAMB', Board.COL_UP_DOWN)}
                                disabled={!this.isEnabled('YAMB', Board.COL_UP_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_UP_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_DOWN)}
                                value={this.getValue('YAMB', Board.COL_DOWN)}
                                disabled={!this.isEnabled('YAMB', Board.COL_DOWN)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_DOWN)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_N)}
                                value={this.getValue('YAMB', Board.COL_N)}
                                disabled={!this.isEnabled('YAMB', Board.COL_N)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_N)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_R)}
                                value={this.getValue('YAMB', Board.COL_R)}
                                disabled={!this.isEnabled('YAMB', Board.COL_R)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_R)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_D)}
                                value={this.getValue('YAMB', Board.COL_D)}
                                disabled={!this.isEnabled('YAMB', Board.COL_D)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_D)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_OPPOSITE)}
                                value={this.getValue('YAMB', Board.COL_OPPOSITE)}
                                disabled={!this.isEnabled('YAMB', Board.COL_OPPOSITE)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_OPPOSITE)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell style={{ position: 'relative' }}>
                         <FontAwesomeIcon icon={faChevronUp}
@@ -1264,19 +1578,25 @@ class Board extends React.Component<any, any> {
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_TOWARD)}
                                value={this.getValue('YAMB', Board.COL_TOWARD)}
                                disabled={!this.isEnabled('YAMB', Board.COL_TOWARD)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_TOWARD)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_O)}
                                value={this.getValue('YAMB', Board.COL_O)}
                                disabled={!this.isEnabled('YAMB', Board.COL_O)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_O)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell>
                         <Input onChange={(e: any) => this.setValue(e.target.value, 'YAMB', Board.COL_M)}
                                value={this.getValue('YAMB', Board.COL_M)}
                                disabled={!this.isEnabled('YAMB', Board.COL_M)}
-                               type='text'/>
+                               onKeyDown={(e: any) => this.onKeyPress(e, 'YAMB', Board.COL_M)}
+                               type='text'
+                        />
                     </Cell>
                     <Cell/>
                 </Row>
@@ -1286,72 +1606,96 @@ class Board extends React.Component<any, any> {
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_UP)}
                                   value={this.getValue('SUM3', Board.COL_UP)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_UP)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_UP)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_UP_DOWN)}
                                   value={this.getValue('SUM3', Board.COL_UP_DOWN)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_UP_DOWN)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_UP_DOWN)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_DOWN)}
                                   value={this.getValue('SUM3', Board.COL_DOWN)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_DOWN)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_DOWN)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_N)}
                                   value={this.getValue('SUM3', Board.COL_N)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_N)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_N)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_R)}
                                   value={this.getValue('SUM3', Board.COL_R)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_R)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_R)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_D)}
                                   value={this.getValue('SUM3', Board.COL_D)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_D)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_D)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_OPPOSITE)}
                                   value={this.getValue('SUM3', Board.COL_OPPOSITE)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_OPPOSITE)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_OPPOSITE)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_TOWARD)}
                                   value={this.getValue('SUM3', Board.COL_TOWARD)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_TOWARD)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_TOWARD)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_O)}
                                   value={this.getValue('SUM3', Board.COL_O)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_O)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_O)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_M)}
                                   value={this.getValue('SUM3', Board.COL_M)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_M)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_M)}
+                                  type='text'
+                        />
                     </Cell>
                     <Cell>
                         <SumInput onChange={(e: any) => this.setValue(e.target.value, 'SUM3', Board.COL_SUM)}
                                   value={this.getValue('SUM3', Board.COL_SUM)}
                                   disabled={!this.isEnabled('SUM3', Board.COL_SUM)}
-                                  type='text'/>
+                                  onKeyDown={(e: any) => this.onKeyPress(e, 'SUM3', Board.COL_SUM)}
+                                  type='text'
+                        />
                     </Cell>
                 </SumRow>
                 <SumRow>
                     <Cell colSpan={11}/>
-                    <Cell><SumInput disabled type='text' value={this.state.TOTAL}/></Cell>
+                    <Cell><SumInput disabled
+                                    type='text'
+                                    value={this.state.TOTAL}/></Cell>
                 </SumRow>
                 </tbody>
             </Table>
