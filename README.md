@@ -1,4 +1,4 @@
-#Yahtzee Board
+# Yahtzee Board
 
 Example: http://yahtzee.ivanstanojevic.me/
 
